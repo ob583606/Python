@@ -1,2 +1,4 @@
 - Add a high score feature for the guessing game (SQL?)
-- Make a GUI
+- Make a GUI (Java?)
+
+- Roobet API
