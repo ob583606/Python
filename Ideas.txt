@@ -1,4 +1,4 @@
-- Add a high score feature for the guessing game (SQL?)
-- Make a GUI (Java?)
+- Add a high score feature for the guessing game (SQL?) [In progress]
+- Make an HTML site to display high scores
 
 - Roobet API
