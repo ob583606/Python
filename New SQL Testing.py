@@ -5,15 +5,15 @@ EndValue = int(input("End Value"))
 Guesses = int(input("Guesses"))
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
+  host="10.0.0.120",
+  user="Ollie",
   password="583606Banana",
   database="high_scores"
 )
 
 mycursor = mydb.cursor()
 
-mycursor.execute("INSERT INTO high_scores (Name,EndValue,Guesses) VALUES ('%s', %d, %d)" % (Name, EndValue, Guesses))
+mycursor.execute("INSERT INTO high_scores (Name,EndValue,Guesses) VALUES ('%s', %d, %d)" % (playerName, endValue, playerGuesses))
 
 mydb.commit()
 
