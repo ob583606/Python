@@ -1,14 +1,19 @@
 import random
 import mysql.connector
-
-## Just so that I don't need one python file for a PC version and one for a Surface version. ##
-playerPlatform = input("Please type 'p' for PC, or anything else for Surface.") 
+import os
+       
+## Just so that I don't need one python file for a PC version and one for a Surface version.
+playerPlatform = input("Please type 'p' for PC, or anything else for Surface.\n") 
 if playerPlatform == "p":
     playerPlatform = "10.0.0.120"
+
 else:
+    ## Starts the SQL service if it's stopped.
+    os.system ('cmd /k "start server.lnk & exit" ')
+    print ("Booting up SQL server...")
     playerPlatform = "localhost"
 
-## Connects to the SQL server. Assumedly will stall the program for about a minute and then produce an error message if the server isn't available. ##
+## Connects to the SQL server. Assumedly will stall the program for about a minute and then produce an error message if the server isn't available.
 mydb = mysql.connector.connect(
         host="%s" % (playerPlatform),
         user="Ollie",
@@ -17,16 +22,15 @@ mydb = mysql.connector.connect(
     )
 mycursor = mydb.cursor()
 
-
 gameLoop = 1
-## Beginning of the loop that holds all of the game's code. ##
+## Beginning of the loop that holds all of the game's code.
 while (gameLoop == 1):
     guessLoop = 1
     inputLoop = 1
     againLoop = 1
     playerGuesses = 0
 
-    ## Displays the high scores. ##
+    ## Displays the high scores.
     print("High score!")
     
     mycursor.execute("SELECT Name, Guesses, EndValue AS 'Score' FROM high_scores WHERE EndValue=(select max(EndValue) from high_scores);")
@@ -36,14 +40,14 @@ while (gameLoop == 1):
     for x in myresult:
         print(x)
     
-    playerName = input("Hello and welcome to Ollie's Guessing Game! Please type your name.")
+    playerName = input("Hello and welcome to Ollie's Guessing Game! Please type your name.\n")
 
-## This loop runs through the steps of the user choosing a number until it is using the correct formatting. Similar styles are used throughout the program, I debated defining a function for this purpose but decided nah. ##
+## This loop runs through the steps of the user choosing a number until it is using the correct formatting. Similar styles are used throughout the program, I debated defining a function for this purpose but decided nah.
     while (inputLoop == 1):
         numError = 1
 
         try:
-            endValue = int(input("Such a beautiful name! One of my favourites. Please type the upper bound for the range of numbers you will be guessing in, lower bound is always 1."))
+            endValue = int(input("Such a beautiful name! One of my favourites. Please type the upper bound for the range of numbers you will be guessing in, lower bound is always 1.\n"))
         
         except ValueError:
             numError = 2
@@ -62,7 +66,7 @@ while (gameLoop == 1):
 
     while (guessLoop == 1):
         try:
-            guess = int(input("Please input your guess!"))
+            guess = int(input("Please input your guess!\n"))
 
         except ValueError:
             print ("Sorry friend, not a valid input! Please only use whole numbers!")
@@ -78,13 +82,13 @@ while (gameLoop == 1):
             else:
                 guessLoop += 1
                 
-## Sends all recorded information to the server running off of my Surface. ##
+## Sends all recorded information to the server running off of my Surface.
     mycursor.execute("INSERT INTO high_scores (Name,EndValue,Guesses) VALUES ('%s', %d, %d)" % (playerName, endValue, playerGuesses))
 
     mydb.commit()
     
     while (againLoop == 1):
-        playAgain = input("Congratulations! You've guessed the number. Play again? (y/n)")
+        playAgain = input("Congratulations! You've guessed the number. Play again? (y/n)\n")
 
         if (playAgain == "y"):
             againLoop = 2
