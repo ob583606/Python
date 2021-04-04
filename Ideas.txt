@@ -2,3 +2,5 @@
 - Make an HTML site to display high scores
 
 - Roobet API
+
+- Web searcher that people can use to find links for movies/tv shows
