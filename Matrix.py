@@ -4,17 +4,18 @@ spc = ("     ")
 
 while (programLoop != "n"):
     gridLoop = 0
-    gridLength = input("Please type the number of variables for your matrix.")
-    gridWidth = input("Please type the number of rows for your matrix.")
+    gridLength = input("Please type the number of variables for your matrix. (Values above 0 and below 5 are accepted)")
+    gridWidth = input("Please type the number of rows for your matrix. (Values above 0 and below 5 are accepted)")
 
     try:
         gridLength = int(gridLength)
         gridWidth = int(gridWidth)
+        
     
     except ValueError:
         print("Sorry, one or more inputs were invalid.")
 
-    if (isinstance(gridLength, int) == True and isinstance(gridWidth, int) == True):
+    if (isinstance(gridLength, int) == True and isinstance(gridWidth, int) == True and gridLength > 0 and gridLength < 5 and gridWidth > 0 and gridWidth < 5):
         while (gridLoop < gridWidth):
 
             c = random.randint(0, 9)
