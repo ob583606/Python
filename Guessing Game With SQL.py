@@ -17,7 +17,7 @@ else:
 mydb = mysql.connector.connect(
         host="%s" % (playerPlatform),
         user="Ollie",
-        password="583606Banana",
+        password="password",
         database="high_scores"
     )
 mycursor = mydb.cursor()
